@@ -25,6 +25,8 @@
   toc-title: "contents",
   toc-depth: none,
   toc-indent: 1.5em,
+  lof: false,
+  lof_title: "Figures",
   bibliography-title: "References",
   bibliography-style: "apa",
   cols: 1,
@@ -224,6 +226,20 @@
     }
   ]
 
+show outline.entry: it => {
+  link(it.element.location(), {
+    it.body
+    box(width: 0pt)
+    box(width: 1fr, it.fill)
+    sym.wj
+    [#it.element.location().page()]
+  })
+}
+
+// We'll make all level 1 entries non-bold by default
+show outline.entry.where(level: 1): it => {
+  it
+}
   // Table of contents
   if toc {
     let title = if toc-title == none {
@@ -231,12 +247,31 @@
     } else {
       toc-title
     }
-    block(inset: (top: 2em, bottom: 0em, left: 2.4em, right: 2.4em))[
+    block(inset: (top: 2em, bottom: 0em))[
+      #set text(size: 0.99em)
+         // Override the outline style specifically for TOC to make it bold
+    #show outline.entry.where(level: 1): it => {
+      strong(it)
+    }
       #outline(
         title: toc-title,
         depth: toc-depth,
         indent: toc-indent
       )
+    ]
+  }
+
+  // List of figures
+  if lof {
+    let lof_title = if lof_title == none {
+        auto
+      } else {
+        lof_title
+      }
+
+    block(above: 1em, below: 2em)[
+      #outline(title: lof_title, depth: toc-depth,
+        indent: toc-indent, target: figure.where(kind: "quarto-float-fig"))
     ]
   }
 
