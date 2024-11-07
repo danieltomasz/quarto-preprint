@@ -3,6 +3,7 @@ project:
   render: 
     - index.qmd
   output-dir: docs
+  post-render: rm orcid.svg psyarxiv.svg
 
 execute:
   cache: true

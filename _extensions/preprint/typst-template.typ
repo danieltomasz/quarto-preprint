@@ -124,11 +124,13 @@
     first-line-indent: first-line-indent
   )
   // Set space between paragraphs
-  if sys.version >= version(0,12,0) {
-    set par(spacing: spacing)
-  } else {
-    show par: set block(spacing: spacing)
-  }
+  // Version above 0.12.0 has par spacing
+  set par(spacing: spacing) if sys.version >= version(0, 12, 0)
+  show bibliography: set par(spacing: spacing, leading: spacing) if sys.version >= version(0, 12, 0)
+  // Version below 0.12.0 uses block spacing
+  show bibliography: set block(spacing: spacing) if sys.version < version(0, 12, 0)
+  show par: set block(spacing: spacing) if sys.version < version(0, 12, 0)
+
 
   // Text settings
   set text(
@@ -305,3 +307,4 @@ show outline.entry.where(level: 1): it => {
   inset: 6pt,
   stroke: none,
 )
+
