@@ -38,9 +38,16 @@
   show link: set text(fill: linkcolor)
   show cite: set text(fill: linkcolor)
 
+
+
   // Allow custom title for bibliography section
   set bibliography(title: bibliography-title, style: bibliography-style)
-
+   // Add bibliography spacing near other document settings
+  if sys.version >= version(0, 12, 0) {
+    show bibliography: set par(spacing: spacing, leading: spacing)
+  } else {
+    show bibliography: set block(spacing: spacing)
+  }
   // Format author strings here, so can use in author note
   let author_strings = ()
   if authors != none {
@@ -127,6 +134,9 @@
   } else {
     show par: set block(spacing: spacing)
   }
+
+
+
 
   // Text settings
   set text(
@@ -264,7 +274,6 @@
   }
 
 }
-
 // Remove gridlines from tables
 #set table(
   inset: 6pt,
@@ -272,9 +281,3 @@
 )
 
 //  fix spacing of blocks in bibliography
-
-#if sys.version >= version(0, 12, 0) {
-  show bibliography: set par(spacing: 0.65em, leading: 0.65em)
-} else {
-  show bibliography: set block(spacing: 0.65em)
-}
