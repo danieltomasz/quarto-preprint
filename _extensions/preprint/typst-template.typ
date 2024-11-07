@@ -266,3 +266,11 @@
   inset: 6pt,
   stroke: none,
 )
+
+//  fix spacing of blocks in bibliography
+
+#if sys.version >= version(0, 12, 0) {
+  show bibliography: set par(spacing: 0.65em, leading: 0.65em)
+} else {
+  show bibliography: set block(spacing: 0.65em)
+}
