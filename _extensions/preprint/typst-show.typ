@@ -97,6 +97,18 @@ $endif$
 $if(toc-indent)$
   toc-indent: "$toc-indent$",
 $endif$
+
+// List of figures
+
+$if(lof)$
+  lof: $lof$,
+$endif$
+$if(lof-title)$
+  lof_title: [$lof-title$],
+$endif$
+
+
+
 $if(cols)$
   cols: $cols$,
 $endif$
